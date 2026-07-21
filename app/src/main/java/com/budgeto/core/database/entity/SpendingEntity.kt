@@ -9,6 +9,7 @@ data class SpendingEntity(
     val id: Long,
     val description: String,
     val amountCents: Long,
-    val date: String,
-    val category: String
+    val date: Long,
+    val category: String,
+    val spendingType: String,
 )

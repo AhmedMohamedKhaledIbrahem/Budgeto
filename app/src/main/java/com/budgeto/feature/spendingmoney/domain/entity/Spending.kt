@@ -1,0 +1,10 @@
+package com.budgeto.feature.spendingmoney.domain.entity
+
+data class Spending(
+    val id: Long,
+    val description: String,
+    val amount: String,
+    val date: String,
+    val category: String,
+    val spendingType: String,
+)
