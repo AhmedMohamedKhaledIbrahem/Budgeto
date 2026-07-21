@@ -1,8 +1,8 @@
-package com.echo.core.error.mapper
+package com.budgeto.core.error.mapper
 
 import android.database.sqlite.SQLiteException
-import com.echo.core.error.DataError
-import com.echo.core.error.DomainError
+import com.budgeto.core.error.DataError
+import com.budgeto.core.error.DomainError
 import java.io.EOFException
 import java.io.FileNotFoundException
 
