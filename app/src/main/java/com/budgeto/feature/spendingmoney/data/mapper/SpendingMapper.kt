@@ -14,7 +14,8 @@ fun SpendingEntity.toModel() = SpendingModel(
     amountCents = amountCents,
     date = date,
     category = category,
-    spendingType = spendingType
+    spendingType = spendingType,
+    icon = icon
 )
 
 fun List<SpendingEntity>.toListModel(): List<SpendingModel> = map { it.toModel() }
@@ -24,7 +25,8 @@ fun SpendingModel.toEntity() = SpendingEntity(
     amountCents = amountCents,
     date = date,
     category = category,
-    spendingType = spendingType
+    spendingType = spendingType,
+    icon = icon
 )
 
 fun Spending.toModel() = SpendingModel(
@@ -33,7 +35,8 @@ fun Spending.toModel() = SpendingModel(
     amountCents = amount.convertAmountToCents(),
     date = System.currentTimeMillis(),
     category = category,
-    spendingType = spendingType
+    spendingType = spendingType,
+    icon = icon
 )
 
 fun SpendingModel.toSpending() = Spending(

@@ -7,4 +7,5 @@ data class Spending(
     val date: String,
     val category: String,
     val spendingType: String,
+    val icon: Int = -1
 )

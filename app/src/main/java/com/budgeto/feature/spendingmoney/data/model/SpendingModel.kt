@@ -7,4 +7,5 @@ data class SpendingModel(
     val date: Long,
     val category: String,
     val spendingType: String,
+    val icon: Int
 )

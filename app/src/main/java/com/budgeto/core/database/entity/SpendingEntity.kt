@@ -12,4 +12,5 @@ data class SpendingEntity(
     val date: Long,
     val category: String,
     val spendingType: String,
+    val icon: Int
 )
