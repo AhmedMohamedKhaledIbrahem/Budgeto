@@ -6,6 +6,7 @@ import com.budgeto.core.error.Resource
 import com.budgeto.core.error.RootError
 import kotlinx.coroutines.launch
 import java.time.Instant
+import java.time.LocalDate
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import java.util.Locale
@@ -34,6 +35,26 @@ inline fun <D, E : RootError, R> Resource<D, E>.fold(
 ): R = when (this) {
     is Resource.Success -> onSuccess(data)
     is Resource.Failure -> onFailure(error)
+}
+fun Long.toHeaderDateLabel(): String {
+    val zoneId = ZoneId.systemDefault()
+    val itemDate = Instant.ofEpochMilli(this).atZone(zoneId).toLocalDate()
+    val today = LocalDate.now(zoneId)
+
+    return when {
+        itemDate.isEqual(today) -> "Today"
+        itemDate.isEqual(today.minusDays(1)) -> "Yesterday"
+        else -> itemDate.format(DateTimeFormatter.ofPattern("dd MMM yyyy", Locale.getDefault()))
+    }
+}
+
+fun Long.toFormattedTime(): String {
+    val formatter = DateTimeFormatter.ofPattern("h:mm a", Locale.getDefault())
+    return Instant.ofEpochMilli(this)
+        .atZone(ZoneId.systemDefault())
+        .toLocalTime()
+        .format(formatter)
+        .lowercase()
 }
 
 /**
