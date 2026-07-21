@@ -43,7 +43,7 @@ fun SpendingModel.toSpending() = Spending(
     id = id,
     description = description,
     amount = amountCents.convertCentsToAmount(),
-    date = date.convertTimeStampToDate(),
+    date = date,
     category = category,
     spendingType = spendingType
 )
