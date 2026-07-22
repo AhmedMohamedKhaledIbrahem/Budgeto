@@ -9,6 +9,8 @@ sealed interface Route : ViewEvent, NavKey {
     @Serializable
     data object HomeScreen: Route,NavKey
     @Serializable
+    data object SpendingScreen:Route,NavKey
+    @Serializable
     data object AnalysisScreen:Route,NavKey
     @Serializable
     data object BalanceScreen:Route,NavKey
