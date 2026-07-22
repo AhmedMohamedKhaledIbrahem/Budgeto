@@ -1,7 +1,7 @@
 package com.budgeto.feature.spendingmoney.data.model
 
 data class SpendingModel(
-    val id: Long,
+    val id: Long = -1,
     val description: String,
     val amountCents: Long,
     val date: Long,
