@@ -38,7 +38,7 @@ fun SpendingDropdownMenu(
         )
         HorizontalDivider(modifier = modifier.padding(vertical = MaterialTheme.spacing.spaceSix))
         Text(
-            text = "Categories",
+            text = "Categories type",
             style = MaterialTheme.typography.labelSmall,
             color = MaterialTheme.colorScheme.primary,
             modifier = Modifier.padding(
@@ -50,7 +50,7 @@ fun SpendingDropdownMenu(
             DropdownMenuItem(
                 text = {
                     Text(
-                        text = "Category Type",
+                        text = categoryType.type,
                         style = MaterialTheme.typography.labelSmall,
                         color = MaterialTheme.colorScheme.onSurface,
                     )
@@ -63,7 +63,7 @@ fun SpendingDropdownMenu(
         }
         HorizontalDivider(modifier = modifier.padding(vertical = MaterialTheme.spacing.spaceSix))
         Text(
-            text = "Spending",
+            text = "Spending type",
             style = MaterialTheme.typography.labelSmall,
             color = MaterialTheme.colorScheme.primary,
             modifier = modifier.padding(
@@ -75,7 +75,7 @@ fun SpendingDropdownMenu(
             DropdownMenuItem(
                 text = {
                     Text(
-                        text = "Payment Methods",
+                        text = spending.type,
                         style = MaterialTheme.typography.labelSmall,
                         color = MaterialTheme.colorScheme.onSurface,
                     )

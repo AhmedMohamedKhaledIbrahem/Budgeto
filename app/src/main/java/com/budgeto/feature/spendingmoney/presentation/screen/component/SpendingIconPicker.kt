@@ -56,19 +56,19 @@ fun SpendingIconPicker(
             ) {
                 when (option) {
                     SpendingIconOption.WALLET -> Icon(
-                        imageVector = Icons.Default.AccountBalanceWallet,
+                        painter = painterResource(R.drawable.ic_wallet),
                         contentDescription = option.label,
                         tint = MaterialTheme.colorScheme.onSurface
                     )
 
                     SpendingIconOption.DEBIT_CARD -> Icon(
-                        imageVector = Icons.Default.CreditCard,
+                        painter = painterResource(R.drawable.ic_debit_card),
                         contentDescription = option.label,
                         tint = MaterialTheme.colorScheme.onSurface
                     )
 
                     SpendingIconOption.CREDIT_CARD -> Icon(
-                        imageVector = Icons.Default.Payments,
+                        painter = painterResource(R.drawable.ic_credit_card),
                         contentDescription = option.label,
                         tint = MaterialTheme.colorScheme.onSurface
                     )
