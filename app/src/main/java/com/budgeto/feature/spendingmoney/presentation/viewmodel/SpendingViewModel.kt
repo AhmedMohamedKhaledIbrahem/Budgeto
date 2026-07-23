@@ -7,6 +7,7 @@ import com.budgeto.core.ui.UiText
 import com.budgeto.core.ui.base.MviViewModel
 import com.budgeto.core.utils.convertCentsToAmount
 import com.budgeto.core.utils.onUseCase
+import com.budgeto.feature.spendingmoney.domain.entity.Spending
 import com.budgeto.feature.spendingmoney.domain.enums.CategoryType
 import com.budgeto.feature.spendingmoney.domain.enums.SpendingType
 import com.budgeto.feature.spendingmoney.domain.usecase.GetAllSpendingUseCase
@@ -36,7 +37,7 @@ class SpendingViewModel @Inject constructor(
     override fun onIntent(intent: SpendingIntent) {
         when (intent) {
             is SpendingIntent.AddNewSpending -> {
-                addNewSpending()
+                addNewSpending(intent.spending)
             }
 
             is SpendingIntent.FilterAllSpending -> {
@@ -69,19 +70,15 @@ class SpendingViewModel @Inject constructor(
         }
     }
 
-    private fun addNewSpending() {
-        val spending = state.value.spending
+    private fun addNewSpending(spending: Spending) {
         if (
-            !spending?.amount.isNullOrBlank() &&
-            spending.description.isNotBlank() &&
-            spending.category.isNotBlank() &&
-            spending.spendingType.isNotBlank() &&
-            spending.icon != -1
+            spending.amount.isBlank() ||
+            spending.description.isBlank() ||
+            spending.category.isBlank() ||
+            spending.spendingType.isBlank() ||
+            spending.icon == -1
         ) {
             sendEvent(UiEvent.ShowSnackBar(UiText.from("all fields are required")))
-            return
-        } else if (spending == null) {
-            sendEvent(UiEvent.ShowSnackBar(UiText.from("empty spending")))
             return
         }
         onUseCase(
@@ -90,8 +87,15 @@ class SpendingViewModel @Inject constructor(
                 addSpendingUseCase.invoke(spending)
             },
             onSuccess = {
-                _state.update { it.copy(isLoading = false) }
-                sendEvent(UiEvent.ShowSnackBar(UiText.from("spending added successfully")))
+                _state.update { it.copy(isLoading = false, isSpendingLoadedFromDb = false) }
+                sendEvent(
+                    UiEvent.CombineEvents(
+                        listOf(
+                            UiEvent.ShowSnackBar(UiText.from("spending added successfully")),
+                            UiEvent.Navigate(Route.HomeScreen)
+                        )
+                    )
+                )
             },
             onFailure = { error ->
                 _state.update { it.copy(isLoading = false) }
@@ -101,8 +105,6 @@ class SpendingViewModel @Inject constructor(
     }
 
     private fun getAllSpending() {
-        val spending = state.value.spending
-        if (spending == null) sendEvent(UiEvent.ShowSnackBar(UiText.from("empty spending")))
         onUseCase(
             useCase = {
                 _state.update { it.copy(isLoading = true) }
@@ -113,7 +115,7 @@ class SpendingViewModel @Inject constructor(
                     it.copy(
                         isLoading = false,
                         isSpendingLoadedFromDb = true,
-                        groupedSpending = groupedSpending
+                        groupedSpending = groupedSpending.distinct()
                     )
                 }
             },

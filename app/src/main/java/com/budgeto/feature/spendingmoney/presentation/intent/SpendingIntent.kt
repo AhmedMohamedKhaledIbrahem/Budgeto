@@ -1,11 +1,12 @@
 package com.budgeto.feature.spendingmoney.presentation.intent
 
 import com.budgeto.core.ui.view.ViewIntent
+import com.budgeto.feature.spendingmoney.domain.entity.Spending
 import com.budgeto.feature.spendingmoney.domain.enums.CategoryType
 import com.budgeto.feature.spendingmoney.domain.enums.SpendingType
 
 sealed interface SpendingIntent : ViewIntent {
-    data object AddNewSpending : SpendingIntent
+    data class AddNewSpending(val spending: Spending) : SpendingIntent
     data object AddNewSpendingClicked : SpendingIntent
     data object LoadSpending : SpendingIntent
     data object FilterAllSpending : SpendingIntent
