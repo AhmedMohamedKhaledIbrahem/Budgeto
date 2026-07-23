@@ -83,12 +83,10 @@ navigation3 = [
 ]
 room = [
     "room-runtime",
-    "room-ktx",
-    "room-compiler"
+    "room-ktx"
 ]
 hilt = [
     "hilt-android",
-    "hilt-compiler",
     "hilt-navigation-compose"
 ]
 compose-debug = [
