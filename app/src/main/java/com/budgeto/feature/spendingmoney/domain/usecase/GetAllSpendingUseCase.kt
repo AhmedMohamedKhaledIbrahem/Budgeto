@@ -8,8 +8,9 @@ import com.budgeto.feature.spendingmoney.domain.entity.GroupedSpending
 import com.budgeto.feature.spendingmoney.domain.repository.SpendingMoneyRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class GetAllSpendingUseCase(
+class GetAllSpendingUseCase @Inject constructor(
     private val repository: SpendingMoneyRepository
 ) {
     suspend operator fun invoke(): Resource<List<GroupedSpending>, DomainError> {

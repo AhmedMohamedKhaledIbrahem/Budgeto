@@ -11,8 +11,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlin.collections.component1
 import kotlin.collections.component2
+import javax.inject.Inject
 
-class GetSpendingByMonthUseCase(
+class GetSpendingByMonthUseCase @Inject constructor(
     private val repository: SpendingMoneyRepository
 ) {
     suspend operator fun invoke(month: String): Resource<List<GroupedSpending>, DomainError> {
