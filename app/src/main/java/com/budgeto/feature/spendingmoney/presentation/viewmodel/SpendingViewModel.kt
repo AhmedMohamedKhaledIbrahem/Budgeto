@@ -72,36 +72,37 @@ class SpendingViewModel @Inject constructor(
 
     private fun addNewSpending(spending: Spending) {
         if (
-            spending.amount.isBlank() ||
-            spending.description.isBlank() ||
-            spending.category.isBlank() ||
-            spending.spendingType.isBlank() ||
+            spending.amount.isBlank() &&
+            spending.description.isBlank() &&
+            spending.category.isBlank() &&
+            spending.spendingType.isBlank() &&
             spending.icon == -1
         ) {
             sendEvent(UiEvent.ShowSnackBar(UiText.from("all fields are required")))
             return
-        }
-        onUseCase(
-            useCase = {
-                _state.update { it.copy(isLoading = true) }
-                addSpendingUseCase.invoke(spending)
-            },
-            onSuccess = {
-                _state.update { it.copy(isLoading = false, isSpendingLoadedFromDb = false) }
-                sendEvent(
-                    UiEvent.CombineEvents(
-                        listOf(
-                            UiEvent.ShowSnackBar(UiText.from("spending added successfully")),
-                            UiEvent.Navigate(Route.HomeScreen)
+        }else {
+            onUseCase(
+                useCase = {
+                    _state.update { it.copy(isLoading = true) }
+                    addSpendingUseCase.invoke(spending)
+                },
+                onSuccess = {
+                    _state.update { it.copy(isLoading = false, isSpendingLoadedFromDb = false) }
+                    sendEvent(
+                        UiEvent.CombineEvents(
+                            listOf(
+                                UiEvent.ShowSnackBar(UiText.from("spending added successfully")),
+                                UiEvent.Navigate(Route.HomeScreen)
+                            )
                         )
                     )
-                )
-            },
-            onFailure = { error ->
-                _state.update { it.copy(isLoading = false) }
-                sendEvent(UiEvent.ShowSnackBar(error.asUiTextOrDefault()))
-            }
-        )
+                },
+                onFailure = { error ->
+                    _state.update { it.copy(isLoading = false) }
+                    sendEvent(UiEvent.ShowSnackBar(error.asUiTextOrDefault()))
+                }
+            )
+        }
     }
 
     private fun getAllSpending() {
