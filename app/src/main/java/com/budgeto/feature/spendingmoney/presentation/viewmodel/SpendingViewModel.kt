@@ -49,7 +49,7 @@ class SpendingViewModel @Inject constructor(
             }
 
             is SpendingIntent.TotalAmountByMonth -> {
-                getTotalAmount(intent.month)
+                getTotalAmount(intent.startDate, intent.endDate)
             }
 
             is SpendingIntent.FilterByMonth -> {
@@ -219,11 +219,11 @@ class SpendingViewModel @Inject constructor(
         )
     }
 
-    private fun getTotalAmount(month: String) {
+    private fun getTotalAmount(startDate: Long, endDate: Long) {
         onUseCase(
             useCase = {
                 _state.update { it.copy(isLoading = true) }
-                getTotalSpendingByMonthUseCase.invoke(month)
+                getTotalSpendingByMonthUseCase.invoke(startDate, endDate)
             },
             onSuccess = { amount ->
                 if (amount == 0L) {

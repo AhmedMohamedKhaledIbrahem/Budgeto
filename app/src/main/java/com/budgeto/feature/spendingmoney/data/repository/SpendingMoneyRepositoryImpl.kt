@@ -28,8 +28,8 @@ class SpendingMoneyRepositoryImpl @Inject constructor(
         )
     }
 
-    override suspend fun getTotalSpendingByMonth(month: String): Resource<Long, DomainError> {
-        return spendingMoneyLocal.getTotalSpendingByMonth(month).fold(
+    override suspend fun getTotalSpendingByMonth(startDate: Long, endDate: Long): Resource<Long, DomainError> {
+        return spendingMoneyLocal.getTotalSpendingByMonth(startDate, endDate).fold(
             onFailure = {
                 Failure(it.toDomainError())
             },

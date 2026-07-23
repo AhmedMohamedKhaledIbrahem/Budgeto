@@ -24,9 +24,9 @@ class SpendingMoneyLocalImpl @Inject constructor(
         }
     }
 
-    override suspend fun getTotalSpendingByMonth(month: String): Resource<Long, DataError> {
+    override suspend fun getTotalSpendingByMonth(startDate: Long, endDate: Long): Resource<Long, DataError> {
         return try {
-            Resource.Success(spendingDao.getTotalSpendingByMonth(month))
+            Resource.Success(spendingDao.getTotalSpendingByMonth(startDate,endDate))
         } catch (e: Exception) {
             reportLogger.e("getTotalSpendingByMonth failed", e)
             Resource.Failure(e.toLocalError())

@@ -11,32 +11,42 @@ interface SpendingDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertSpending(spending: SpendingEntity)
 
-    @Query("""
+    @Query(
+        """
         select coalesce(sum(amountCents),0)
-        from spending_table where date like :month || '%'
-    """)
-    suspend fun getTotalSpendingByMonth(month: String) : Long
+        from spending_table where date BETWEEN :startDate AND :endDate
+    """
+    )
+    suspend fun getTotalSpendingByMonth(startDate: Long, endDate: Long): Long
 
-    @Query("""
+    @Query(
+        """
         select * from spending_table
         where date like :month || '%'
-    """)
-    suspend fun getSpendingByMonth(month: String):List<SpendingEntity>
+    """
+    )
+    suspend fun getSpendingByMonth(month: String): List<SpendingEntity>
 
-    @Query("""
+    @Query(
+        """
         select * from spending_table
         where category = :category
-    """)
-    suspend fun getSpendingByCategory(category: String):List<SpendingEntity>
+    """
+    )
+    suspend fun getSpendingByCategory(category: String): List<SpendingEntity>
 
-    @Query("""
+    @Query(
+        """
         select * from spending_table
-    """)
-    suspend fun getAllSpending():List<SpendingEntity>
+    """
+    )
+    suspend fun getAllSpending(): List<SpendingEntity>
 
-    @Query("""
+    @Query(
+        """
         select * from spending_table
         where spendingType = :spendingType
-    """)
-    suspend fun getSpendingBySpendingType(spendingType: String):List<SpendingEntity>
+    """
+    )
+    suspend fun getSpendingBySpendingType(spendingType: String): List<SpendingEntity>
 }

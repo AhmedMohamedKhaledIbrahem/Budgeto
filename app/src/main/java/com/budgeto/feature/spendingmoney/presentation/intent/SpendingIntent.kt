@@ -13,6 +13,6 @@ sealed interface SpendingIntent : ViewIntent {
     data class FilterByMonth(val month: String) : SpendingIntent
     data class FilterByCategory(val category: CategoryType) : SpendingIntent
     data class FilterBySpendingType(val spendingType: SpendingType) : SpendingIntent
-    data class TotalAmountByMonth(val month: String) : SpendingIntent
+    data class TotalAmountByMonth(val startDate: Long, val endDate: Long) : SpendingIntent
 
 }

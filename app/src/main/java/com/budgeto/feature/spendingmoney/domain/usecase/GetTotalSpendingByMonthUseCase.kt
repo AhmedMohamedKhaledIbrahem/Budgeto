@@ -8,7 +8,7 @@ import javax.inject.Inject
 class GetTotalSpendingByMonthUseCase @Inject constructor(
     private val repository: SpendingMoneyRepository
 ) {
-    suspend operator fun invoke(month: String): Resource<Long, DomainError> {
-        return repository.getTotalSpendingByMonth(month)
+    suspend operator fun invoke(startDate: Long, endDate: Long): Resource<Long, DomainError> {
+        return repository.getTotalSpendingByMonth(startDate, endDate)
     }
 }
