@@ -57,6 +57,44 @@ fun Long.toFormattedTime(): String {
         .lowercase()
 }
 
+fun getCurrentMonthRange(): Pair<Long, Long> {
+    val zone = ZoneId.systemDefault()
+
+    val startOfMonth = LocalDate.now()
+        .withDayOfMonth(1)
+        .atStartOfDay(zone)
+        .toInstant()
+        .toEpochMilli()
+
+    val endOfMonth = LocalDate.now()
+        .plusMonths(1)
+        .withDayOfMonth(1)
+        .atStartOfDay(zone)
+        .toInstant()
+        .toEpochMilli() - 1
+
+    return startOfMonth to endOfMonth
+}
+
+fun getMonthRange(year: Int, month: Int): Pair<Long, Long> {
+    val zone = ZoneId.systemDefault()
+
+    val firstDay = LocalDate.of(year, month, 1)
+
+    val start = firstDay
+        .atStartOfDay(zone)
+        .toInstant()
+        .toEpochMilli()
+
+    val end = firstDay
+        .plusMonths(1)
+        .atStartOfDay(zone)
+        .toInstant()
+        .toEpochMilli() - 1
+
+    return start to end
+}
+
 /**
  * Executes a suspend use case inside [viewModelScope] and handles its [Result].
  *
