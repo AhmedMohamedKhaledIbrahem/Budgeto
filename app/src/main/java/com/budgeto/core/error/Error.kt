@@ -1,3 +1,3 @@
-package com.echo.core.error
+package com.budgeto.core.error
 
 sealed interface Error

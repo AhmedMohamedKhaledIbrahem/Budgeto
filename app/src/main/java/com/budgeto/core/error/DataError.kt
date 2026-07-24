@@ -1,4 +1,4 @@
-package com.echo.core.error
+package com.budgeto.core.error
 
 interface DataError: Error {
 

@@ -47,7 +47,6 @@ android {
 kotlin {
     compilerOptions {
         jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_11)
-        freeCompilerArgs.add("-XXLanguage:+PropertyParamAnnotationDefaultTargetMode")
     }
 }
 
@@ -60,6 +59,8 @@ dependencies {
     implementation(libs.bundles.hilt)
     implementation(libs.bundles.navigation3)
     implementation(libs.timber)
+    ksp(libs.room.compiler)
+    ksp(libs.hilt.compiler)
     debugImplementation(libs.bundles.compose.debug)
     testImplementation(libs.bundles.unit.test)
 

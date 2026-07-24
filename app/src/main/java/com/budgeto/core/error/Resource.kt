@@ -1,4 +1,4 @@
-package com.echo.core.error
+package com.budgeto.core.error
 
 
 typealias RootError = Error

@@ -1,13 +1,13 @@
 package com.budgeto.core.error.mapper
 
 import com.budgeto.R
-import com.echo.core.error.DomainError
-import com.echo.core.error.DomainError.Local.EMPTY_DATA
-import com.echo.core.error.DomainError.Local.FILE_NOT_FOUND
-import com.echo.core.error.DomainError.Local.INVALID_DATA
-import com.echo.core.error.DomainError.UNKNOWN.UNKNOWN
-import com.echo.core.error.Resource
-import com.echo.core.error.RootError
+import com.budgeto.core.error.DomainError
+import com.budgeto.core.error.DomainError.Local.EMPTY_DATA
+import com.budgeto.core.error.DomainError.Local.FILE_NOT_FOUND
+import com.budgeto.core.error.DomainError.Local.INVALID_DATA
+import com.budgeto.core.error.DomainError.UNKNOWN.UNKNOWN
+import com.budgeto.core.error.Resource
+import com.budgeto.core.error.RootError
 import com.budgeto.core.ui.UiText
 import com.budgeto.core.ui.UiText.DynamicString
 import com.budgeto.core.ui.UiText.StringResource
