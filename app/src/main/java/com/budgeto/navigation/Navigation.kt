@@ -25,6 +25,7 @@ import com.budgeto.core.event.UiEvent
 import com.budgeto.core.event.combineEvent
 import com.budgeto.core.navigation.Route
 import com.budgeto.feature.spendingmoney.presentation.intent.SpendingIntent
+import com.budgeto.feature.spendingmoney.presentation.screen.SpendingMoneyDetailsScreen
 import com.budgeto.feature.spendingmoney.presentation.screen.SpendingMoneyScreen
 import com.budgeto.feature.spendingmoney.presentation.screen.SpendingScreen
 import com.budgeto.feature.spendingmoney.presentation.viewmodel.SpendingViewModel
@@ -76,6 +77,9 @@ fun Navigation() {
                     }
 
                     is UiEvent.Navigate -> navigateTo(event.route)
+                    is UiEvent.BackToPreviousScreen -> {
+                        backStack.removeAt(backStack.lastIndex)
+                    }
                 }
             }
         }
@@ -96,7 +100,11 @@ fun Navigation() {
             }
         },
         bottomBar = {
-            BottomNavigationBar(backStack)
+            if (
+                backStack.last() is Route.HomeScreen ||
+                backStack.last() is Route.AnalysisScreen ||
+                backStack.last() is Route.BalanceScreen
+            ) BottomNavigationBar(backStack)
         },
         floatingActionButton = {
             if (backStack.last() is Route.HomeScreen) {
@@ -119,6 +127,15 @@ fun Navigation() {
                 }
                 entry<Route.SpendingScreen> {
                     SpendingScreen(viewModel = viewModel)
+                }
+                entry<Route.SpendingDetailsScreen> {
+                    SpendingMoneyDetailsScreen(
+                        spending = it.spending, onBackToSpendingScreen = {
+                            viewModel.onIntent(
+                                SpendingIntent.BackToSpendingScreen
+                            )
+                        }
+                    )
                 }
                 entry<Route.BalanceScreen> {
 
