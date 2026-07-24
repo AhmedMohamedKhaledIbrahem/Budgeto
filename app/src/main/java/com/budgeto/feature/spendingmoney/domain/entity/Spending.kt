@@ -1,5 +1,8 @@
 package com.budgeto.feature.spendingmoney.domain.entity
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class Spending(
     val id: Long,
     val description: String,
