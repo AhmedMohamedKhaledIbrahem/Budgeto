@@ -9,10 +9,14 @@ sealed interface SpendingIntent : ViewIntent {
     data class AddNewSpending(val spending: Spending) : SpendingIntent
     data object AddNewSpendingClicked : SpendingIntent
     data object LoadSpending : SpendingIntent
+
+    data object BackToSpendingScreen : SpendingIntent
     data object FilterAllSpending : SpendingIntent
     data class FilterByMonth(val month: String) : SpendingIntent
     data class FilterByCategory(val category: CategoryType) : SpendingIntent
     data class FilterBySpendingType(val spendingType: SpendingType) : SpendingIntent
     data class TotalAmountByMonth(val startDate: Long, val endDate: Long) : SpendingIntent
+
+    data class SpendingMoneyDetailsClicked(val spending: Spending) : SpendingIntent
 
 }
