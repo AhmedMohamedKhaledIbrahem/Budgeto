@@ -67,6 +67,19 @@ class SpendingViewModel @Inject constructor(
             is SpendingIntent.LoadSpending -> {
                 if (!state.value.isSpendingLoadedFromDb) getAllSpending()
             }
+
+            is SpendingIntent.SpendingMoneyDetailsClicked -> {
+                sendEvent(
+                    UiEvent.Navigate(
+                        Route.SpendingDetailsScreen(intent.spending)
+                    )
+                )
+            }
+            is SpendingIntent.BackToSpendingScreen -> {
+                sendEvent(
+                    UiEvent.BackToPreviousScreen
+                )
+            }
         }
     }
 
@@ -80,7 +93,7 @@ class SpendingViewModel @Inject constructor(
         ) {
             sendEvent(UiEvent.ShowSnackBar(UiText.from("all fields are required")))
             return
-        }else {
+        } else {
             onUseCase(
                 useCase = {
                     _state.update { it.copy(isLoading = true) }
