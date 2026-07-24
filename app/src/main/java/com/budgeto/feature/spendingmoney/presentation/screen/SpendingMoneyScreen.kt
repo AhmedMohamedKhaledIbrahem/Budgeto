@@ -1,5 +1,6 @@
 package com.budgeto.feature.spendingmoney.presentation.screen
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -25,6 +26,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.budgeto.core.ui.component.LoadingDialog
 import com.budgeto.core.ui.spacing
@@ -35,10 +37,12 @@ import com.budgeto.feature.spendingmoney.domain.entity.Spending
 import com.budgeto.feature.spendingmoney.domain.enums.CategoryType
 import com.budgeto.feature.spendingmoney.domain.enums.SpendingType
 import com.budgeto.feature.spendingmoney.presentation.intent.SpendingIntent
-import com.budgeto.feature.spendingmoney.presentation.screen.component.FilterSelection
-import com.budgeto.feature.spendingmoney.presentation.screen.component.SpendingDropdownMenu
+import com.budgeto.feature.spendingmoney.presentation.screen.component.spending.FilterSelection
+import com.budgeto.feature.spendingmoney.presentation.screen.component.spending.SpendingDropdownMenu
 import com.budgeto.feature.spendingmoney.presentation.screen.component.SpendingMoneyCard
 import com.budgeto.feature.spendingmoney.presentation.viewmodel.SpendingViewModel
+
+private val FabBottomInset = 88.dp
 
 @Composable
 fun SpendingMoneyScreen(
@@ -153,7 +157,12 @@ fun SpendingList(
     onSpendingMoneyClicked: (spending: Spending) -> Unit,
 ) {
     LazyColumn(
-        contentPadding = PaddingValues(MaterialTheme.spacing.spaceExtraSmall),
+        contentPadding = PaddingValues(
+            start = MaterialTheme.spacing.spaceExtraSmall,
+            top = MaterialTheme.spacing.spaceExtraSmall,
+            end = MaterialTheme.spacing.spaceExtraSmall,
+            bottom = MaterialTheme.spacing.spaceExtraSmall + FabBottomInset
+        ),
         verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.spaceExtraSmall),
         modifier = Modifier.padding(MaterialTheme.spacing.spaceMedium)
     ) {
@@ -164,7 +173,10 @@ fun SpendingList(
                         text = group.header,
                         style = MaterialTheme.typography.titleMedium,
                         color = MaterialTheme.colorScheme.onBackground,
-                        modifier = Modifier.padding(vertical = MaterialTheme.spacing.spaceSmall)
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .background(MaterialTheme.colorScheme.background)
+                            .padding(vertical = MaterialTheme.spacing.spaceSmall)
                     )
                 }
                 items(items = group.items, key = { it.id }) { item ->
