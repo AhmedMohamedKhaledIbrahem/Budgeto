@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.budgeto.core.error.Resource
 import com.budgeto.core.error.RootError
 import kotlinx.coroutines.launch
+import java.text.DecimalFormat
 import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneId
@@ -27,7 +28,8 @@ fun Long?.convertCentsToAmount(): String {
     return String.format(Locale.ENGLISH,"%.2f",valueInUnits)
 }
 
-fun String?.convertAmountToCents(): Long = (this?.toLong() ?: 0L) * 100
+fun String?.convertAmountToCents(): Long =
+    ((this?.replace(",", "")?.toDoubleOrNull() ?: 0.0) * 100).let(Math::round)
 
 inline fun <D, E : RootError, R> Resource<D, E>.fold(
     onSuccess: (D) -> R,
@@ -118,4 +120,11 @@ inline fun <D, reified E : RootError> ViewModel.onUseCase(
             is Resource.Failure -> onFailure(result)
         }
     }
+}
+fun formatCurrency(digits: String): String {
+    if (digits.isEmpty()) return "0.00"
+
+    val amount = digits.toLong() / 100.0
+
+    return DecimalFormat("#,##0.00").format(amount)
 }
