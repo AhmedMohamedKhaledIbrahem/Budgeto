@@ -126,7 +126,14 @@ fun Navigation() {
                     SpendingMoneyScreen(viewModel = viewModel)
                 }
                 entry<Route.SpendingScreen> {
-                    SpendingScreen(viewModel = viewModel)
+                    SpendingScreen(
+                        viewModel = viewModel ,
+                        onBackToSpendingScreen = {
+                            viewModel.onIntent(
+                                SpendingIntent.BackToSpendingScreen
+                            )
+                        }
+                    )
                 }
                 entry<Route.SpendingDetailsScreen> {
                     SpendingMoneyDetailsScreen(
