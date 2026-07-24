@@ -1,4 +1,4 @@
-package com.budgeto.feature.spendingmoney.presentation.screen.component
+package com.budgeto.feature.spendingmoney.presentation.screen.component.spending
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.DropdownMenu

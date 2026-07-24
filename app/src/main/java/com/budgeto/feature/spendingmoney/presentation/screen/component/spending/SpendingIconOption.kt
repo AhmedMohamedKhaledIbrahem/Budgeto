@@ -1,4 +1,4 @@
-package com.budgeto.feature.spendingmoney.presentation.screen.component
+package com.budgeto.feature.spendingmoney.presentation.screen.component.spending
 
 import com.budgeto.R
 

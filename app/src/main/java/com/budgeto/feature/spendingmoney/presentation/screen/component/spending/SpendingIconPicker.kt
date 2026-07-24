@@ -1,4 +1,4 @@
-package com.budgeto.feature.spendingmoney.presentation.screen.component
+package com.budgeto.feature.spendingmoney.presentation.screen.component.spending
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -10,10 +10,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccountBalanceWallet
-import androidx.compose.material.icons.filled.CreditCard
-import androidx.compose.material.icons.filled.Payments
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
