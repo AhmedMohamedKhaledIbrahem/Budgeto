@@ -42,10 +42,6 @@ fun SpendingMoneyCategoryDetailsCard(
             modifier = Modifier
                 .size(40.dp)
                 .clip(CircleShape)
-                .background(
-                    if (isSelected) MaterialTheme.colorScheme.primaryContainer
-                    else MaterialTheme.colorScheme.surfaceContainer
-                )
                 .border(
                     width = if (isSelected) 2.dp else 0.dp,
                     color = if (isSelected) MaterialTheme.colorScheme.primary else Color.Transparent,

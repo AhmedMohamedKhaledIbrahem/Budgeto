@@ -31,6 +31,7 @@ import com.budgeto.core.ui.spacing
 import com.budgeto.core.utils.getCurrentMonthRange
 import com.budgeto.core.utils.toFormattedTime
 import com.budgeto.feature.spendingmoney.domain.entity.GroupedSpending
+import com.budgeto.feature.spendingmoney.domain.entity.Spending
 import com.budgeto.feature.spendingmoney.domain.enums.CategoryType
 import com.budgeto.feature.spendingmoney.domain.enums.SpendingType
 import com.budgeto.feature.spendingmoney.presentation.intent.SpendingIntent
@@ -62,7 +63,14 @@ fun SpendingMoneyScreen(
                 onFilterBySpending = { viewModel.onIntent(SpendingIntent.FilterBySpendingType(it)) },
                 onFilterByCategory = { viewModel.onIntent(SpendingIntent.FilterByCategory(it)) }
             )
-            SpendingList(groupedSpendings = state.groupedSpending)
+            SpendingList(
+                groupedSpendings = state.groupedSpending,
+                onSpendingMoneyClicked = {
+                    viewModel.onIntent(
+                        SpendingIntent.SpendingMoneyDetailsClicked(it)
+                    )
+                }
+            )
 
         }
     }
@@ -140,7 +148,10 @@ fun SpendingHeader(
 }
 
 @Composable
-fun SpendingList(groupedSpendings: List<GroupedSpending>) {
+fun SpendingList(
+    groupedSpendings: List<GroupedSpending>,
+    onSpendingMoneyClicked: (spending: Spending) -> Unit,
+) {
     LazyColumn(
         contentPadding = PaddingValues(MaterialTheme.spacing.spaceExtraSmall),
         verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.spaceExtraSmall),
@@ -163,7 +174,10 @@ fun SpendingList(groupedSpendings: List<GroupedSpending>) {
                     SpendingMoneyCard(
                         description = item.description,
                         amount = item.amount,
-                        time = formattedTime
+                        time = formattedTime,
+                        onSpendingMoneyClicked = {
+                            onSpendingMoneyClicked(item)
+                        }
                     )
                 }
             }

@@ -1,5 +1,6 @@
 package com.budgeto.feature.spendingmoney.presentation.screen.component
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -13,11 +14,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.budgeto.core.ui.spacing
 
 @Composable
 fun SpendingMoneyCard(
     modifier: Modifier = Modifier,
+    onSpendingMoneyClicked: () -> Unit,
     time:String,
     description:String,
     amount:String,
@@ -27,8 +30,17 @@ fun SpendingMoneyCard(
         modifier = modifier,
         shape = CardDefaults.shape,
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surfaceContainer
-        )
+            containerColor = MaterialTheme.colorScheme.surface
+        ),
+        elevation = CardDefaults.cardElevation(
+            defaultElevation = MaterialTheme.spacing.spaceSmall
+        ),
+        border = BorderStroke(
+            width = 2.dp,
+            color = MaterialTheme.colorScheme.primary
+        ),
+
+        onClick = onSpendingMoneyClicked
     ) {
         Column(
             modifier = Modifier
@@ -37,7 +49,7 @@ fun SpendingMoneyCard(
             Text(
                 text = time,
                 style = MaterialTheme.typography.labelSmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
+                color = MaterialTheme.colorScheme.onSurface
             )
             Row(
                 modifier = Modifier

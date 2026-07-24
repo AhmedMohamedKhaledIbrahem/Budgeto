@@ -23,7 +23,10 @@ fun BottomNavigationBar(
 ) {
     val current = backStack.last()
 
-    NavigationBar {
+    NavigationBar(
+        containerColor = MaterialTheme.colorScheme.surface,
+        contentColor = MaterialTheme.colorScheme.onSurface
+    ) {
         NavigationBarItem(
             selected = current is Route.HomeScreen,
             onClick = { navigateToTab(backStack, Route.HomeScreen) },

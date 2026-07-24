@@ -1,6 +1,7 @@
 package com.budgeto.feature.spendingmoney.presentation.screen.component.spendingmoneydetails
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -15,8 +16,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import com.budgeto.R
 import com.budgeto.core.ui.spacing
 
 @Composable
@@ -30,7 +33,7 @@ fun SpendingMoneyTypeDetailsCard(
         modifier = modifier.padding(horizontal = MaterialTheme.spacing.spaceMedium),
         shape = CardDefaults.shape,
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surfaceContainer
+            containerColor = MaterialTheme.colorScheme.surface
         ),
         border = BorderStroke(
             width = if (isSelected) 2.dp else 0.dp,
@@ -38,7 +41,8 @@ fun SpendingMoneyTypeDetailsCard(
                 MaterialTheme.colorScheme.primary
             else
                 Color.Transparent
-        )
+        ),
+
     ) {
         Row(
             modifier = Modifier
@@ -50,16 +54,29 @@ fun SpendingMoneyTypeDetailsCard(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Start
         ) {
-            Icon(
-                painter = painterResource(icon),
-                null,
-                modifier = modifier.size(24.dp),
-            )
+            when(icon){
+                R.drawable.ic_insta_pay -> {
+                    Image(
+                        painter = painterResource(icon),
+                        null,
+                        modifier = modifier.size(24.dp),
+                    )
+                }
+                else -> {
+                    Image(
+                        painter = painterResource(icon),
+                        null,
+                        modifier = modifier.size(24.dp),
+                        colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurface)
+                    )
+                }
+            }
+
             Text(
                 modifier = Modifier.padding(start = MaterialTheme.spacing.spaceSmall),
                 text = name,
                 style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
+                color = MaterialTheme.colorScheme.onSurface
             )
         }
     }

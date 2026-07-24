@@ -1,5 +1,7 @@
 package com.budgeto.feature.spendingmoney.presentation.screen.component.spendingmoneydetails
 
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -36,8 +38,15 @@ fun SpendingMoneyDetailsCard(
         modifier = modifier.padding(horizontal = MaterialTheme.spacing.spaceMedium),
         shape = CardDefaults.shape,
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surfaceContainer
-        )
+            containerColor = MaterialTheme.colorScheme.surface
+        ),
+        border = BorderStroke(
+            width = 2.dp,
+            color = MaterialTheme.colorScheme.primary
+        ),
+        elevation = CardDefaults.cardElevation(
+            defaultElevation = MaterialTheme.spacing.spaceSmall
+        ),
     ) {
         Row(
             modifier = Modifier
@@ -67,7 +76,7 @@ fun SpendingMoneyDetailsCard(
                 Icon(
                     painter = painterResource(R.drawable.ic_groceries),
                     null,
-                    modifier = modifier.size(24.dp),
+                    modifier = modifier.size(20.dp),
                 )
             }
             Column(
@@ -76,12 +85,12 @@ fun SpendingMoneyDetailsCard(
                 Text(
                     text = "description",
                     style = MaterialTheme.typography.labelMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                    color = MaterialTheme.colorScheme.onSurface
                 )
                 Text(
                     text = description,
                     style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.surface
+                    color = MaterialTheme.colorScheme.onSurface
                 )
             }
         }
@@ -126,12 +135,12 @@ fun SpendingMoneyDetailsCard(
                 Text(
                     text = "Time",
                     style = MaterialTheme.typography.labelMedium,
-                    color = MaterialTheme.colorScheme.surface
+                    color = MaterialTheme.colorScheme.onSurface
                 )
                 Text(
                     text = time,
                     style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                    color = MaterialTheme.colorScheme.onSurface
                 )
             }
         }
