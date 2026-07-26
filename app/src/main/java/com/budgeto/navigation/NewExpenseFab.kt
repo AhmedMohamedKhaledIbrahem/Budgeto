@@ -9,8 +9,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 
 @Composable
-fun AddSpendingFab(
-    onclick: () -> Unit
+fun NewExpenseFab(
+    onclick: () -> Unit,
+    name: String
 ) {
     ExtendedFloatingActionButton(
         onClick = onclick,
@@ -21,7 +22,7 @@ fun AddSpendingFab(
             )
         },
         text = {
-            Text(text = "Add Spending")
+            Text(text = name)
         },
         containerColor = MaterialTheme.colorScheme.primary,
         contentColor = MaterialTheme.colorScheme.onPrimary
