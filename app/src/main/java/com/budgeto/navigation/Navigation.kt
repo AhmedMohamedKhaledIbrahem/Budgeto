@@ -24,6 +24,9 @@ import androidx.navigation3.ui.NavDisplay
 import com.budgeto.core.event.UiEvent
 import com.budgeto.core.event.combineEvent
 import com.budgeto.core.navigation.Route
+import com.budgeto.feature.balance.presentation.intent.BalanceIntent
+import com.budgeto.feature.balance.presentation.screen.BalanceScreenRoot
+import com.budgeto.feature.balance.presentation.viewmodel.BalanceViewModel
 import com.budgeto.feature.spendingmoney.presentation.intent.SpendingIntent
 import com.budgeto.feature.spendingmoney.presentation.screen.SpendingMoneyDetailsScreen
 import com.budgeto.feature.spendingmoney.presentation.screen.SpendingMoneyScreen
@@ -36,6 +39,7 @@ import kotlinx.coroutines.launch
 fun Navigation() {
     val backStack = rememberNavBackStack(Route.HomeScreen)
     val viewModel = hiltViewModel<SpendingViewModel>()
+    val balanceViewModel = hiltViewModel<BalanceViewModel>()
     val snackbarHostState = remember { SnackbarHostState() }
     val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current
@@ -75,7 +79,6 @@ fun Navigation() {
                             )
                         }
                     }
-
                     is UiEvent.Navigate -> navigateTo(event.route)
                     is UiEvent.BackToPreviousScreen -> {
                         backStack.removeAt(backStack.lastIndex)
@@ -108,8 +111,15 @@ fun Navigation() {
         },
         floatingActionButton = {
             if (backStack.last() is Route.HomeScreen) {
-                AddSpendingFab(
+                NewExpenseFab(
+                    name = "Add Spending",
                     onclick = { viewModel.onIntent(SpendingIntent.AddNewSpendingClicked) }
+                )
+            }
+            if (backStack.last() is Route.BalanceScreen) {
+                NewExpenseFab(
+                    name = "Add Budget Amount",
+                    onclick = { balanceViewModel.onIntent(BalanceIntent.AddBalanceClicked) }
                 )
             }
         }
@@ -127,7 +137,7 @@ fun Navigation() {
                 }
                 entry<Route.SpendingScreen> {
                     SpendingScreen(
-                        viewModel = viewModel ,
+                        viewModel = viewModel,
                         onBackToSpendingScreen = {
                             viewModel.onIntent(
                                 SpendingIntent.BackToSpendingScreen
@@ -145,7 +155,7 @@ fun Navigation() {
                     )
                 }
                 entry<Route.BalanceScreen> {
-
+                    BalanceScreenRoot(viewModel = balanceViewModel)
                 }
                 entry<Route.AnalysisScreen> {
 
