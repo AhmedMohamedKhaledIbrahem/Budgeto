@@ -6,5 +6,5 @@ import com.budgeto.feature.balance.data.model.MonthlyBudgetModel
 
 interface BalanceLocal {
     suspend fun insertBalance(monthlyBudgetModel: MonthlyBudgetModel): Resource<Unit, DataError>
-    suspend fun getMonthlyBudget(startDate: Long, endDate: Long): Resource<Long, DataError>
+    suspend fun getMonthlyBudget(startDate: Long, endDate: Long): Resource<MonthlyBudgetModel?, DataError>
 }

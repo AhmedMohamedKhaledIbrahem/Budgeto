@@ -11,6 +11,6 @@ interface MonthlyBudgetDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertMonthlyBudget(monthlyBudget: MonthlyBudgetEntity)
 
-    @Query("SELECT budgetCents FROM monthly_budget_table WHERE month BETWEEN :startDate AND :endDate ")
-    suspend fun getMonthlyBudget(startDate: Long, endDate: Long): Long
+    @Query("SELECT * FROM monthly_budget_table WHERE month BETWEEN :startDate AND :endDate limit 1 ")
+    suspend fun getMonthlyBudget(startDate: Long, endDate: Long): MonthlyBudgetEntity?
 }

@@ -5,6 +5,7 @@ import com.budgeto.core.error.Resource
 import com.budgeto.core.error.mapper.toDomainError
 import com.budgeto.core.error.mapper.toLocalError
 import com.budgeto.core.utils.fold
+import com.budgeto.feature.balance.data.mapper.toDomain
 import com.budgeto.feature.balance.data.mapper.toModel
 import com.budgeto.feature.balance.data.service.BalanceLocal
 import com.budgeto.feature.balance.domain.entity.MonthlyBudget
@@ -31,13 +32,13 @@ class BalanceRepositoryImpl @Inject constructor(
     override suspend fun getMonthlyBudget(
         startDate: Long,
         endDate: Long
-    ): Resource<Long, DomainError> {
+    ): Resource<MonthlyBudget?, DomainError> {
         return balanceLocal.getMonthlyBudget(startDate, endDate).fold(
             onFailure = {
                 Resource.Failure(it.toDomainError())
             },
             onSuccess = {
-                Resource.Success(it)
+                Resource.Success(it?.toDomain())
             }
         )
     }
@@ -45,7 +46,7 @@ class BalanceRepositoryImpl @Inject constructor(
     override suspend fun calculateMonthlyBalance(
         spent: Long,
         monthlyBudget: Long
-    ): Resource<MonthlyBalanceAlert, DomainError> = withContext(Dispatchers.IO){
+    ): Resource<MonthlyBalanceAlert, DomainError> = withContext(Dispatchers.IO) {
         try {
             if (monthlyBudget <= 0) return@withContext Resource.Success(MonthlyBalanceAlert.OVER_BUDGET)
             val percentage = spent / monthlyBudget
@@ -54,7 +55,7 @@ class BalanceRepositoryImpl @Inject constructor(
                 percentage >= 0.7 -> Resource.Success(MonthlyBalanceAlert.WARNING)
                 else -> Resource.Success(MonthlyBalanceAlert.SAFE)
             }
-        }catch (e: Exception){
+        } catch (e: Exception) {
             Resource.Failure(e.toLocalError().toDomainError())
         }
     }

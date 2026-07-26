@@ -7,7 +7,11 @@ import com.budgeto.feature.balance.domain.enums.MonthlyBalanceAlert
 
 interface BalanceRepository {
     suspend fun insertBalance(monthlyBudget: MonthlyBudget): Resource<Unit, DomainError>
-    suspend fun getMonthlyBudget(startDate: Long, endDate: Long): Resource<Long, DomainError>
+    suspend fun getMonthlyBudget(
+        startDate: Long,
+        endDate: Long
+    ): Resource<MonthlyBudget?, DomainError>
+
     suspend fun calculateMonthlyBalance(
         spent: Long,
         monthlyBudget: Long

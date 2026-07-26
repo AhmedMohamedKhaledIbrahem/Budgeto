@@ -6,6 +6,7 @@ import com.budgeto.core.error.Resource
 import com.budgeto.core.error.mapper.toLocalError
 import com.budgeto.core.logger.ReportLogger
 import com.budgeto.feature.balance.data.mapper.toEntity
+import com.budgeto.feature.balance.data.mapper.toModel
 import com.budgeto.feature.balance.data.model.MonthlyBudgetModel
 import javax.inject.Inject
 
@@ -26,9 +27,9 @@ class BalanceLocalImpl @Inject constructor(
     override suspend fun getMonthlyBudget(
         startDate: Long,
         endDate: Long
-    ): Resource<Long, DataError> {
+    ): Resource<MonthlyBudgetModel?, DataError> {
         return try {
-            Resource.Success(balanceDao.getMonthlyBudget(startDate, endDate))
+            Resource.Success(balanceDao.getMonthlyBudget(startDate, endDate)?.toModel())
         }catch (e: Exception){
             e("Error getting monthly budget", e)
             Resource.Failure(e.toLocalError())
