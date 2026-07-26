@@ -12,7 +12,7 @@ import com.budgeto.core.database.entity.SpendingEntity
         MonthlyBudgetEntity::class,
         SpendingEntity::class
     ],
-    version = 1,
+    version = 2,
     exportSchema = false,
 )
 abstract class BudgetoDataBase: RoomDatabase() {
