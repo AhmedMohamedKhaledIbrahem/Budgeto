@@ -11,6 +11,6 @@ interface MonthlyBudgetDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertMonthlyBudget(monthlyBudget: MonthlyBudgetEntity)
 
-    @Query("SELECT * FROM monthly_budget_table WHERE month = :month ")
-    suspend fun getMonthlyBudget(month: String): MonthlyBudgetEntity
+    @Query("SELECT budgetCents FROM monthly_budget_table WHERE month = :month ")
+    suspend fun getMonthlyBudget(month: String): Long
 }
