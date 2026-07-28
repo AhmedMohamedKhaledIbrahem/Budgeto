@@ -7,6 +7,7 @@ import com.budgeto.core.ui.UiText
 import com.budgeto.core.ui.base.MviViewModel
 import com.budgeto.core.utils.convertCentsToAmount
 import com.budgeto.core.utils.onUseCase
+import com.budgeto.feature.balance.domain.usecase.CheckAndNotifyBalanceAlertUseCase
 import com.budgeto.feature.spendingmoney.domain.entity.Spending
 import com.budgeto.feature.spendingmoney.domain.enums.CategoryType
 import com.budgeto.feature.spendingmoney.domain.enums.SpendingType
@@ -29,7 +30,8 @@ class SpendingViewModel @Inject constructor(
     private val getSpendingByMonthUseCase: GetSpendingByMonthUseCase,
     private val getSpendingByCategoryUseCase: GetSpendingByCategoryUseCase,
     private val getSpendingBySpendingTypeUseCase: GetSpendingBySpendingTypeUseCase,
-    private val getTotalSpendingByMonthUseCase: GetTotalSpendingByMonthUseCase
+    private val getTotalSpendingByMonthUseCase: GetTotalSpendingByMonthUseCase,
+    private val checkAndNotifyBalanceAlertUseCase: CheckAndNotifyBalanceAlertUseCase
 ) : MviViewModel<SpendingMoneyState, SpendingIntent, UiEvent>() {
     override val initialState: SpendingMoneyState
         get() = SpendingMoneyState()
@@ -101,6 +103,7 @@ class SpendingViewModel @Inject constructor(
                 },
                 onSuccess = {
                     _state.update { it.copy(isLoading = false, isSpendingLoadedFromDb = false) }
+                    checkAndNotifyBalanceAlertUseCase(spending.date)
                     sendEvent(
                         UiEvent.CombineEvents(
                             listOf(

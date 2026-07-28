@@ -78,6 +78,11 @@ fun getCurrentMonthRange(): Pair<Long, Long> {
     return startOfMonth to endOfMonth
 }
 
+fun Long.toMonthRange(): Pair<Long, Long> {
+    val date = Instant.ofEpochMilli(this).atZone(ZoneId.systemDefault()).toLocalDate()
+    return getMonthRange(date.year, date.monthValue)
+}
+
 fun getMonthRange(year: Int, month: Int): Pair<Long, Long> {
     val zone = ZoneId.systemDefault()
 
