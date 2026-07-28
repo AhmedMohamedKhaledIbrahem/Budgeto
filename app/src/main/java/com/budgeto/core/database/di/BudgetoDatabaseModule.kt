@@ -39,4 +39,10 @@ object BudgetoDatabaseModule {
         budgetoDataBase: BudgetoDataBase
     ) = budgetoDataBase.spendingDao()
 
+    @Provides
+    @Singleton
+    fun provideMonthlyAlertStateDao(
+        budgetoDataBase: BudgetoDataBase
+    ) = budgetoDataBase.monthlyAlertStateDao()
+
 }

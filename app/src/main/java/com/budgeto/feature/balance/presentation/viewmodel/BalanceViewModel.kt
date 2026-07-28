@@ -9,6 +9,7 @@ import com.budgeto.core.utils.convertAmountToCents
 import com.budgeto.core.utils.onUseCase
 import com.budgeto.feature.balance.domain.entity.MonthlyBudget
 import com.budgeto.feature.balance.domain.usecase.CalculateMonthlyBalanceAlertUseCase
+import com.budgeto.feature.balance.domain.usecase.CheckAndNotifyBalanceAlertUseCase
 import com.budgeto.feature.balance.domain.usecase.GetMonthlyBudgetUseCase
 import com.budgeto.feature.balance.domain.usecase.InsertBalanceUseCase
 import com.budgeto.feature.balance.presentation.intent.BalanceIntent
@@ -24,7 +25,8 @@ class BalanceViewModel @Inject constructor(
     private val insertBalanceUseCase: InsertBalanceUseCase,
     private val getMonthlyBudgetUseCase: GetMonthlyBudgetUseCase,
     private val calculateMonthlyBalanceUseCase: CalculateMonthlyBalanceAlertUseCase,
-    private val getTotalSpendingByMonthUseCase: GetTotalSpendingByMonthUseCase
+    private val getTotalSpendingByMonthUseCase: GetTotalSpendingByMonthUseCase,
+    private val checkAndNotifyBalanceAlertUseCase: CheckAndNotifyBalanceAlertUseCase
 ) : MviViewModel<BalanceState, BalanceIntent, UiEvent>() {
     override val initialState: BalanceState
         get() = BalanceState()
@@ -79,6 +81,7 @@ class BalanceViewModel @Inject constructor(
             },
             onSuccess = {
                 updateState { it.copy(isLoading = false, isDialogVisible = false) }
+                checkAndNotifyBalanceAlertUseCase(monthlyBudget.month)
                 sendEvent(
                     UiEvent.ShowSnackBar(
                         UiText.from("balance added successfully")

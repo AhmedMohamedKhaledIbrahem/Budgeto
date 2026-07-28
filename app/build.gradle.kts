@@ -58,9 +58,11 @@ dependencies {
     implementation(libs.bundles.room)
     implementation(libs.bundles.hilt)
     implementation(libs.bundles.navigation3)
+    implementation(libs.bundles.work)
     implementation(libs.timber)
     ksp(libs.room.compiler)
     ksp(libs.hilt.compiler)
+    ksp(libs.androidx.hilt.compiler)
     debugImplementation(libs.bundles.compose.debug)
     testImplementation(libs.bundles.unit.test)
 
