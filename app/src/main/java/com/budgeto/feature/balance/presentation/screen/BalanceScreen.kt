@@ -117,11 +117,7 @@ fun MonthlyBalanceIndicator(
         CircularProgressIndicator(
             progress = { rememberProgress },
             modifier = modifier.fillMaxSize(),
-            color = when {
-                progress >= 0.9f -> Color(monthlyBalanceAlert.color)
-                progress >= 0.7f -> Color(monthlyBalanceAlert.color)
-                else -> Color(monthlyBalanceAlert.color)
-            },
+            color = Color(monthlyBalanceAlert.color),
             strokeWidth = 12.dp,
             trackColor = MaterialTheme.colorScheme.surfaceVariant,
             strokeCap = ProgressIndicatorDefaults.CircularDeterminateStrokeCap,

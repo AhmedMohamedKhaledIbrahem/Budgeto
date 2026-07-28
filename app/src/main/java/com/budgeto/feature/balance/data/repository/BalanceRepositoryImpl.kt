@@ -49,7 +49,7 @@ class BalanceRepositoryImpl @Inject constructor(
     ): Resource<MonthlyBalanceAlert, DomainError> = withContext(Dispatchers.IO) {
         try {
             if (monthlyBudget <= 0) return@withContext Resource.Success(MonthlyBalanceAlert.OVER_BUDGET)
-            val percentage = spent / monthlyBudget
+            val percentage = spent.toDouble() / monthlyBudget.toDouble()
             return@withContext when {
                 percentage >= 0.9 -> Resource.Success(MonthlyBalanceAlert.OVER_BUDGET)
                 percentage >= 0.7 -> Resource.Success(MonthlyBalanceAlert.WARNING)
